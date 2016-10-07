@@ -1,0 +1,7 @@
+/**
+ * Created by aitor on 8/10/16.
+ */
+
+node_modules/
+.idea/
+public/bower_components
