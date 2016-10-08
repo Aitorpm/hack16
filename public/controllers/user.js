@@ -3,10 +3,8 @@
  */
 
 
-angular.module('Rsa', []).controller('User', ['$http', '$scope', function ($http, $scope) {
+angular.module('Hack', []).controller('User', ['$http', '$scope', function ($http, $scope) {
     var url = "http://localhost:8080";
-    var keys = {publicKey: ""};
-    var msg = "Hola como estas?";
 
 
     $scope.hola = function () {

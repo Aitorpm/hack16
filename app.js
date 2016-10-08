@@ -1,11 +1,22 @@
 var express = require('express');
 var path = require('path');
+var mongoose = require('mongoose');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var routes = require('./routes/index');
 
+
 var app = express();
 
+require('mongoose-middleware').initialize(mongoose);
+mongoose.connect('mongodb://localhost/hack', function(err) {
+  if(err) throw err;
+  console.log('Conectados con éxito a la Base de Datos');
+});
+
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
