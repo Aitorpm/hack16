@@ -1,12 +1,13 @@
-var express = require('express');
-var path = require('path');
-var mongoose = require('mongoose');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var routes = require('./routes/index');
+var express = require('express'),
+path = require('path'),
+mongoose = require('mongoose'),
+cookieParser = require('cookie-parser'),
+bodyParser = require('body-parser'),
+routes = require('./routes/index'),
+app = express(),
+socket_server = require('http').Server(app),
+io = require('socket.io')(socket_server);
 
-
-var app = express();
 
 require('mongoose-middleware').initialize(mongoose);
 mongoose.connect('mongodb://localhost/hack', function(err) {
@@ -31,13 +32,21 @@ app.use(function(req, res, next) {
   next(err);
 });
 
-
-
 module.exports = app;
 
 var server = require('http').Server(app);
 
-// Start server
-server.listen(8080, function() {
-  console.log("Node server running on http://localhost:8080");
+
+//SOCKET.IO SERVER
+
+io.on('connection', function(conn) {
+  console.log("CONECTION!");
+  conn.emit('connection', "Connexion creada");
 });
+
+// Start server
+server.listen(8080, function() {console.log("Node server running on http://localhost:8080");});
+
+socket_server.listen(3000, function(){console.log("Socket.io running on http://localhost:8080");});
+
+
